@@ -4,7 +4,10 @@ class Timeslots {
     }
 
     showTimes () {
-        return (this.AllTimes[0].day + this.AllTimes[0].date + this.AllTimes[0].month + this.AllTimes[0].year)
+
+        return (this.AllTimes.map( x => {
+            return(<div className="output-date">{`${x.day} ${x.date} ${x.month} ${x.year}`}</div>)
+        }))
     }
 
     addTime(day, date, month, year) {

@@ -1,21 +1,25 @@
 import './App.css';
 import moment from 'moment';
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Timeslot from "./components/Timeslot";
 import DayColumn from "./components/DayColumn";
 import Timeslots from "./classes/Timeslots";
+import {TimeslotContext} from "./components/ContextAPI";
+
 
 const App = () => {
 
-  const [data, setData] = useState({
-    today: moment().format("DD MMMM YYYY"),
-    day: moment().day(),
-    dayOfMonth: moment().date(),
-    month: moment().month(),
-    year: moment().year(),
-    targetDate: moment(),
-    avalibleDates: new Timeslots()
-  });
+  // const [data, setData] = useState({
+  //   today: moment().format("DD MMMM YYYY"),
+  //   day: moment().day(),
+  //   dayOfMonth: moment().date(),
+  //   month: moment().month(),
+  //   year: moment().year(),
+  //   targetDate: moment(),
+  //   avalibleDates: new Timeslots()
+  // });
+
+  const [data, setData] = useContext(TimeslotContext);
 
   const weekdays = moment.weekdays();
 

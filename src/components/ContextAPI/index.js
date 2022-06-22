@@ -1,5 +1,6 @@
-import React, { useState, useEffect, createContext } from 'react';
+import React, { useState, createContext } from 'react';
 import moment from 'moment';
+import Timeslots from '../../classes/Timeslots';
 
 export const TimeslotContext = createContext();
 
@@ -14,10 +15,7 @@ const TimeslotContextProvider = (props) => {
         avalibleDates: new Timeslots()
       });
     return (
-        <TimeslotContext.Provider value={{ 
-            data: data,
-            setData: setData
-        }}>
+        <TimeslotContext.Provider value={[data, setData]}>
         	{props.children}
         </TimeslotContext.Provider>
     );
