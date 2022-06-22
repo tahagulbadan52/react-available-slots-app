@@ -1,8 +1,13 @@
 import React from "react";
 
-const Timeslot = () => {
+const Timeslot = ({time, day, date, month, year}) => {
+
+    const clickHandler = () => {
+        console.log(date, month, year);
+    }
+
     return (
-        <div>
+        <div className="timeslot" onClick={clickHandler}>
             timeslot
         </div>
     )

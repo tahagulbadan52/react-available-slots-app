@@ -3,6 +3,7 @@ import moment from 'moment';
 import React, { useState } from 'react'
 import Timeslot from "./components/Timeslot";
 import DayColumn from "./components/DayColumn";
+import Timeslots from "./classes/Timeslots";
 
 const App = () => {
 
@@ -12,20 +13,21 @@ const App = () => {
     dayOfMonth: moment().date(),
     month: moment().month(),
     year: moment().year(),
-    targetDate: moment()
+    targetDate: moment(),
+    avalibleDates: new Timeslots()
   });
 
   const weekdays = moment.weekdays();
 
   const nextWeek = () => {
     let newDate = data.targetDate.add(1, 'w')
-    setData(prevData => ({...prevData, ['targetDate'] : newDate}))
+    setData(prevData => ({...prevData, 'targetDate' : newDate}))
     console.log(data.targetDate);  
   }
 
   const previousWeek = () => {
     let newDate = data.targetDate.subtract(1, 'w')
-    setData(prevData => ({...prevData, ['targetDate'] : newDate}))
+    setData(prevData => ({...prevData, 'targetDate' : newDate}))
     console.log(data.targetDate);    
   }
 
@@ -42,25 +44,31 @@ const App = () => {
       </header>
     
       
-        <div className='container'>
-          
-          {weekdays.map(
-            (day, i) => {
-              let displayDate = moment(data.targetDate).add((data.day * -1) + i, 'd').date();
-              return (
-                <DayColumn weekday={day} date={displayDate}>
-                  <Timeslot />
-                  <Timeslot />
-                  <Timeslot />
-                  <Timeslot />
-                  <Timeslot />
-                  <Timeslot />
-                </DayColumn> 
-              )
-            }
-          )}
-          
-        </div>
+      <div className='cal-container'>
+        
+        {weekdays.map(
+          (day, i) => {
+            let displayDate = moment(data.targetDate).add((data.day * -1) + i, 'd');
+            let displayDay = displayDate.date();
+            let displayMonth = displayDate.month();
+            let displayYear = displayDate.year();
+            return (
+              <DayColumn key={`${day}-${displayDay}`} weekday={day} date={displayDay}>
+                {
+                  [...Array(24)].map((x,i) => {
+                    return (<Timeslot key={`${i}-${displayDay}-${displayMonth}-${displayYear}`} date={displayDay} month={displayMonth} year={displayYear} time={i} day={day} />)
+                  })
+                }
+              </DayColumn> 
+            )
+          }
+        )}
+        
+      </div>
+
+      <div className='output'>
+        {data.avalibleDates.showTimes()}
+      </div>
 
     </div>
   );
