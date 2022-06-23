@@ -66,7 +66,7 @@ const App = () => {
         
       </div>
 
-      <div className='output'>
+      <div className='output section'>
         {data.avalibleDates.showTimes()}
       </div>
 
