@@ -70,7 +70,7 @@ const App = () => {
         
       </div>
 
-      <div className='output section'>
+      <div className='output'>
         {data.avalibleDates.showTimes()}
       </div>
 
